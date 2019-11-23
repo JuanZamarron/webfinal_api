@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-var eventSchema = new mongoose.Schema({
+var registerSchema = new mongoose.Schema({
   userT:{
     organizer: Boolean,
     partipiant: Boolean
@@ -16,16 +16,21 @@ var eventSchema = new mongoose.Schema({
       required: true
   },
   services:[{
-      service{
-          type: String
+      service:{
+          type: String,
+          required: true
+      },
+      price:{
+        type: String,
+        required: true
       }
-  }]
-  assitant:{
-      type: Number,
-      required: true
+  }],
+  totalprice:{
+    type: Number,
+    required: true
   }
 })
 
-const Event = mongoose.model('Event', eventSchema);
+const Register = mongoose.model('Register', registerSchema);
 
-module.exports = Event;
+module.exports = Register;
