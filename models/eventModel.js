@@ -42,7 +42,7 @@ var eventSchema = new mongoose.Schema({
       deportivo: Boolean,
       otro: Boolean
   },
-  assitant:{
+  assistant:{
       type: Number,
       required: true
   }
