@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 var registerSchema = new mongoose.Schema({
   userT:{
     organizer: Boolean,
-    partipiant: Boolean
+    participant: Boolean
   },
   eventID:{
     type: mongoose.Schema.Types.ObjectId,

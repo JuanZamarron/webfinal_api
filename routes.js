@@ -6,6 +6,7 @@ const auth = require("./middleware/auth.js");
 
 const user = require("./controlers/userControler.js")
 const event = require('./controlers/eventControler.js')
+const register = require('./controlers/registerControler.js')
 
 router.all('*', cors());
 
@@ -17,6 +18,9 @@ router.patch('/user/edit/:id', auth, user.updateUser); //Edit user information
 
 //EVENT
 router.post('/createEvent', event.createEvent); // Create a new event
+
+//REGISTER
+router.post('/createRegister', register.createRegister); //Create new register
 
 router.get('*', function(req, res) {
   res.send({
