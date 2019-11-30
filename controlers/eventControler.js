@@ -50,7 +50,10 @@ const getEventsCreatedBy = function(req, res){
 //Update event
 const updateEvent = function(req, res){ 
     const _id = req.params.id
-    const updates = Object.keys(req.body)
+    const updates = Object.keys({
+        ...req.body,
+        nameO: req.user.name
+    })
     const allowedUpdates = ["assistant", "services"]
     const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
     if (!isValidUpdate){
