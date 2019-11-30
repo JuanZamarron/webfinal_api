@@ -17,6 +17,33 @@ const getAllEvents = function(req, res){
           return res.status(404).send()
         }
         return res.send(event)
+    }).catch(function(error){
+        return res.status(500).send(error)
+    })
+}
+
+//Get events by id
+const getEventsById = function(req, res){
+    const id = req.params.id
+    Event.findById(id).then(function(event){
+        if(!event){
+            return res.status(404).send()
+        }
+        return res.send(event)
+    }).catch(function(error){
+        return res.status(500).send(error)
+    })
+}
+
+//Get events createdby
+const getEventsCreatedBy = function(req, res){
+    Event.find({ createdBy: req.user._id }).then(function(events){
+        if(!events){
+            return res.status(404).send()
+        }
+        return res.send(events)
+    }).catch(function(error){
+        return res.status(500).send(error)
     })
 }
 
@@ -44,16 +71,21 @@ const updateEvent = function(req, res){
 //Delete event
 const deleteEvent = function(req, res){
     const id = req.params.id
-    Event.findOneAndRemove({ _id: id }).then(function(event,res){
-        res.send({event: "deleted"});
+    Event.findOneAndDelete({ _id, createdBy: req.user._id }).then(function(event){
+        if(!event){
+            return res.status(404).send()
+        }
+        return res.send(event)
     }).catch(function(error){
-        res.status(500).send(error)
+        res.status(505).send({ error: error })
     })
 }
 
 module.exports = {
     createEvent: createEvent,
     getAllEvents: getAllEvents,
+    getEventsById: getEventsById,
+    getEventsCreatedBy: getEventsCreatedBy,
     updateEvent: updateEvent,
     deleteEvent: deleteEvent
 }
