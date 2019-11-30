@@ -17,10 +17,18 @@ router.post('/logout', auth, user.logout); //User logout
 router.patch('/user/edit/:id', auth, user.updateUser); //Edit user information
 
 //EVENT
-router.post('/createEvent', event.createEvent); // Create a new event
+router.post('/createEvent', auth, event.createEvent); // Create a new event
+router.get('/getAllEvents', auth, event.getAllEvents); //Get all events
+router.get('/getEventId/:id', auth, event.getEventsById); //Get event by id
+router.get('/getEventCreatedBy', auth, event.getEventsCreatedBy); //Get events created by
+router.patch('/event/edit/:id', auth, event.updateEvent); //Update events
+router.delete('/event/delete/:id', auth, event.deleteEvent); //Delete event
 
 //REGISTER
-router.post('/createRegister', register.createRegister); //Create new register
+router.post('/createRegister', auth, register.createRegister); //Create new register
+router.get('/getRegisterUserId', auth, register.getRegisterByUserID); //Get register by user id
+router.patch('/updateRegister', auth, register.updateRegister); //Update register services
+router.delete('/register/delete/:id', auth, register.deleteRegister); //Delete register
 
 router.get('*', function(req, res) {
   res.send({
