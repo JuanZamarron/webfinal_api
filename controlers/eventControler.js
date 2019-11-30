@@ -51,7 +51,7 @@ const getEventsCreatedBy = function(req, res){
 const updateEvent = function(req, res){ 
     const _id = req.params.id
     const updates = Object.keys(req.body)
-    const allowedUpdates = ["nameE", "date", "hourB", "hourE"]
+    const allowedUpdates = ["nameE", "date", "hourB", "hourE", "status"]
     const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
     if (!isValidUpdate){
         return res.status(400).send({

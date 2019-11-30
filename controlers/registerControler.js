@@ -59,5 +59,6 @@ const deleteRegister = function(req, res){
 module.exports = { 
     createRegister: createRegister,
     getRegisterByUserID: getRegisterByUserID,
+    updateRegister: updateRegister,
     deleteRegister: deleteRegister
 }
