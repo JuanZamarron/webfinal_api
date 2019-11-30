@@ -18,11 +18,11 @@ var eventSchema = new mongoose.Schema({
       required: true
   },
   hourB:{
-      type: Number,
+      type: String,
       required: true
   },
   hourE:{
-      type: Number,
+      type: String,
       require: true
   },
   cover:{
