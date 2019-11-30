@@ -15,7 +15,7 @@ const createRegister = function(req, res){
 
 //Get registers
 const getRegisterByUserID = function(req, res){
-    Register.find({ userID: req.user._id }, function(register){
+    Register.find({ userID: req.user._id }).then(function(register){
         if(!register){
             return res.status(404).send()
         }
