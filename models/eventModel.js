@@ -21,6 +21,10 @@ var eventSchema = new mongoose.Schema({
       type: Number,
       require: true
   },
+  cover:{
+      type: Number,
+      required: true
+  },
   services:[{
       service:{
           type: String,
@@ -45,6 +49,11 @@ var eventSchema = new mongoose.Schema({
   assistant:{
       type: Number,
       required: true
+  },
+  createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
   }
 })
 

@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 var registerSchema = new mongoose.Schema({
-  userT:{
-    organizer: Boolean,
-    participant: Boolean
-  },
   eventID:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
