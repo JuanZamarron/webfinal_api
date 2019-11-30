@@ -2,7 +2,11 @@ const Event = require('../models/eventModel.js')
 
 //Create event
 const createEvent = function(req, res){
-    const event = new Event(req.body)
+    const event = new Event({
+        ...req.body,
+        createdBy: req.user._id,
+        nameO: req.user.name
+    })
     event.save().then(function(){
         res.send(event)
     }).catch(function(error){
@@ -50,10 +54,7 @@ const getEventsCreatedBy = function(req, res){
 //Update event
 const updateEvent = function(req, res){ 
     const _id = req.params.id
-    const updates = Object.keys({
-        ...req.body,
-        nameO: req.user.name
-    })
+    const updates = Object.keys(req.body)
     const allowedUpdates = ["assistant", "services"]
     const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
     if (!isValidUpdate){
