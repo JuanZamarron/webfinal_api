@@ -51,7 +51,7 @@ const getEventsCreatedBy = function(req, res){
 const updateEvent = function(req, res){ 
     const _id = req.params.id
     const updates = Object.keys(req.body)
-    const allowedUpdates = ["nameE", "date", "hourB", "hourE", "status"]
+    const allowedUpdates = ["assistant", "services"]
     const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
     if (!isValidUpdate){
         return res.status(400).send({
@@ -59,6 +59,27 @@ const updateEvent = function(req, res){
         })
     }
     Event.findByIdAndUpdate(_id, req.body).then(function(event){
+        if(!event){
+            return res.status(404).send()
+        }
+        return res.send(event)
+    }).catch(function(error){
+        res.status(500).send(error)
+    })
+}
+
+//Update event by creator
+const updateEventCreatedBy = function(req, res){ 
+    const _id = req.params.id
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ["nameE", "date", "hourB", "hourE", "status"]
+    const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
+    if (!isValidUpdate){
+        return res.status(400).send({
+        error: 'Invalid update, only allowed updates: ' + allowedUpdates
+        })
+    }
+    Event.findOneAndUpdate({_id, createdBy: req.user._id}, req.body).then(function(event){
         if(!event){
             return res.status(404).send()
         }
@@ -87,5 +108,6 @@ module.exports = {
     getEventsById: getEventsById,
     getEventsCreatedBy: getEventsCreatedBy,
     updateEvent: updateEvent,
+    updateEventCreatedBy: updateEventCreatedBy,
     deleteEvent: deleteEvent
 }
