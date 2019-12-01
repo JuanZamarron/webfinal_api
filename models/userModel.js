@@ -107,6 +107,20 @@ userSchema.pre('save', function(next) {
     }
   })
 
+  userSchema.methods.hash = function(){
+    const user = this
+    if( user.isModified('password') ) {
+      bcrypt.hash(user.password, 8).then(function(hash){
+        user.password = hash
+        next()
+      }).catch(function(error){
+        return next(error)
+      })
+    } else {
+      next()  
+    }
+  }
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User

@@ -1,4 +1,10 @@
 const User = require('../models/userModel.js');
+if ( process.env.NODE_ENV === 'production') {
+  var secret = process.env.secret
+} else {
+  const config = require('../config')
+  var secret = config.secret
+}
 
 const createUser = function(req, res){
   const user = new User(req.body)
@@ -46,6 +52,7 @@ const updateUser = function(req, res) {
       if (!user){
         return res.status(404).send()
       }
+      user.hash()
       return res.send(user)
     }).catch(function(error) {
       res.status(500).send(error)
