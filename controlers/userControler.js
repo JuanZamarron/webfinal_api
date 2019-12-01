@@ -1,10 +1,4 @@
 const User = require('../models/userModel.js');
-if ( process.env.NODE_ENV === 'production') {
-  var secret = process.env.secret
-} else {
-  const config = require('../config')
-  var secret = config.secret
-}
 
 const createUser = function(req, res){
   const user = new User(req.body)
@@ -48,7 +42,6 @@ const updateUser = function(req, res) {
       error: 'Invalid update, only allowed updates: ' + allowedUpdates
     })
   }
-  req.body.hash()
     User.findByIdAndUpdate(_id, req.body).then(function(user) {
       if (!user){
         return res.status(404).send()
