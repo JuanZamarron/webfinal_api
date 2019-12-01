@@ -48,11 +48,11 @@ const updateUser = function(req, res) {
       error: 'Invalid update, only allowed updates: ' + allowedUpdates
     })
   }
+  req.body.hash()
     User.findByIdAndUpdate(_id, req.body).then(function(user) {
       if (!user){
         return res.status(404).send()
       }
-      user.hash()
       return res.send(user)
     }).catch(function(error) {
       res.status(500).send(error)
