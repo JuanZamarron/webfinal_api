@@ -1,4 +1,5 @@
 const User = require('../models/userModel.js');
+const bcrypt = require('bcryptjs')
 
 const createUser = function(req, res){
   const user = new User(req.body)
@@ -40,6 +41,13 @@ const updateUser = function(req, res) {
   if (!isValidUpdate){
     return res.status(400).send({
       error: 'Invalid update, only allowed updates: ' + allowedUpdates
+    })
+  }
+  if(req.body.password != ""){
+    bcrypt.hash(req.body.password, 8).then(function(hash){
+      req.body.password = hash
+    }).catch(function(error){
+      return res.status(505).send(error)
     })
   }
     User.findByIdAndUpdate(_id, req.body).then(function(user) {

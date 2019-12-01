@@ -107,19 +107,20 @@ userSchema.pre('save', function(next) {
     }
   })
 
-  userSchema.methods.hash = function(){
-    const user = this
-    if( user.isModified('password') ) {
-      bcrypt.hash(user.password, 8).then(function(hash){
-        user.password = hash
-        next()
-      }).catch(function(error){
-        return next(error)
-      })
-    } else {
-      next()  
+  userSchema.pre('findOneAndUpdate', function (next) {
+    let query = this;
+    let update = query.getUpdate();
+
+    if (!update.password) {
+        return next();
     }
-  }
+    bcrypt.hash(update.password, 8).then(function(hash){
+      update.password = hash
+      next()
+    }).catch(function(error){
+      return next(error)
+    })
+  });
 
 const User = mongoose.model('User', userSchema);
 
