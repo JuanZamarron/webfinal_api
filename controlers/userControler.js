@@ -33,7 +33,7 @@ const logout = function(req, res){
 }
 
 const updateUser = function(req, res) {
-  const _id = req.params.id
+  const _id = req.user._id
   const updates = Object.keys(req.body)
   const allowedUpdates = ['email', 'name', 'password', 'phone']
   const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))

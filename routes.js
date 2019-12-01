@@ -14,7 +14,7 @@ router.all('*', cors())
 router.post('/createUser', user.createUser) //Create one user
 router.post('/login', user.login) //User login
 router.post('/logout', auth, user.logout) //User logout
-router.patch('/user/edit/:id', auth, user.updateUser) //Edit user information
+router.patch('/user/edit', auth, user.updateUser) //Edit user information
 
 //EVENT
 router.post('/createEvent', auth, event.createEvent) // Create a new event
