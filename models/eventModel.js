@@ -60,8 +60,8 @@ var eventSchema = new mongoose.Schema({
       ref: 'User'
   },
   status: {
-      activo: Boolean,
-      cancelado: Boolean
+      type: Boolean,
+      required: true
   }
 })
 
